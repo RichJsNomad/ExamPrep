@@ -1,73 +1,98 @@
-# React + TypeScript + Vite
+# 🎓 ExamPrep - Платформа подготовки к ЕГЭ и ОГЭ
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Образовательная платформа для подготовки школьников 8-11 классов к ОГЭ и ЕГЭ с уникальным ИИ-помощником.
 
-Currently, two official plugins are available:
+## 🚀 Текущий прогресс MVP
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### ✅ Завершено
 
-## React Compiler
+#### Страница "Главная ученика" (Dashboard)
+- **MainLayout** - основной layout с Header и Navbar
+  - Адаптивное боковое меню с навигацией
+  - Header с уведомлениями и профилем
+  - Иконки Tabler для навигации
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Компоненты дашборда:**
+  - `WelcomeSection` - приветствие + стрик + уровень
+  - `TodayPlanCard` - план на сегодня с чек-листом задач
+  - `GoalProgressCard` - прогресс до целевого балла (МГУ)
+  - `ContinueLearningCard` - карточка продолжения обучения
+  - `AchievementsCard` - последние достижения с XP
+  - `WeeklyChallengeCard` - челлендж недели с прогрессом
 
-## Expanding the ESLint configuration
+### 🎨 Дизайн
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+**Цветовая палитра ExamPrep:**
+- Синий `#2563EB` - основной цвет (доверие, образование)
+- Фиолетовый `#9333EA` - инновации, ИИ
+- Зеленый `#10B981` - успехи, прогресс
+- Оранжевый `#F59E0B` - энергия, мотивация
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+**UI библиотека:** Mantine v8.3.10
+- 120+ готовых компонентов
+- Benchmark Score: 95.9 (лучший в категории)
+- Полная адаптивность (Mobile-first)
+- Темная/светлая тема
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📦 Установка
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠 Разработка
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+Откройте [http://localhost:5174](http://localhost:5174) в браузере.
+
+## 📁 Структура проекта
+
+```
+src/
+├── layouts/
+│   └── MainLayout.tsx          # Основной layout с Header и Navbar
+├── pages/
+│   └── StudentDashboard.tsx    # Главная страница ученика
+├── components/
+│   └── dashboard/
+│       ├── WelcomeSection.tsx          # Приветствие
+│       ├── TodayPlanCard.tsx           # План на сегодня
+│       ├── GoalProgressCard.tsx        # Прогресс до цели
+│       ├── ContinueLearningCard.tsx    # Продолжить обучение
+│       ├── AchievementsCard.tsx        # Достижения
+│       └── WeeklyChallengeCard.tsx     # Челлендж недели
+├── App.tsx                     # Главный компонент приложения
+└── main.tsx                    # Entry point с MantineProvider
+```
+
+## 🎯 Следующие шаги (MVP)
+
+### Оставшиеся 5 страниц для ученика:
+
+1. **ИИ-Роадмап** ⭐ - персональный план поступления
+2. **Каталог предметов** - список доступных предметов
+3. **Страница предмета** - модули, уроки, прогресс
+4. **Урок (видео)** - видео-плеер, материалы, задания
+5. **Практика/Тест** - решение задач или тестирование
+
+## 🛠 Технологии
+
+- **React** 19.2.0
+- **TypeScript** 5.9.3
+- **Vite** 7.2.4
+- **Mantine** 8.3.10 (UI Framework)
+- **Tabler Icons** 3.36.0
+
+## 📝 Документация
+
+- [Техническое задание](tz.txt)
+- [User Flow](userflow.txt)
+- [Claude.md](claude.md) - описание проекта для AI
+
+---
+
+**Версия:** MVP v0.1
+**Дата:** 17 декабря 2025
