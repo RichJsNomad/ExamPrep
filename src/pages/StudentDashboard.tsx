@@ -9,6 +9,7 @@ import { GoalProgressCard } from '../components/dashboard/GoalProgressCard'
 import { ContinueLearningCard } from '../components/dashboard/ContinueLearningCard'
 import { AchievementsCard } from '../components/dashboard/AchievementsCard'
 import { WeeklyChallengeCard } from '../components/dashboard/WeeklyChallengeCard'
+import { MockExamCard } from '../components/dashboard/MockExamCard'
 import { useOnboarding } from '../context/OnboardingContext'
 import { useDailyProgress } from '../context/DailyProgressContext'
 
@@ -158,6 +159,9 @@ export function StudentDashboard() {
           progress={67}
           subjectColor="blue"
         />
+
+        {/* Пробный ЕГЭ */}
+        <MockExamCard onStartClick={() => navigate('/mock-exam/subjects')} />
 
         {/* Вторая сетка */}
         <SimpleGrid cols={{ base: 1, md: 2 }} spacing="lg">

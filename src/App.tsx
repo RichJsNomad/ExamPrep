@@ -15,6 +15,15 @@ import { MiniQuiz } from './pages/daily/MiniQuiz'
 import { QuizResult } from './pages/daily/QuizResult'
 import { PracticeSession } from './pages/daily/PracticeSession'
 import { DayComplete } from './pages/daily/DayComplete'
+import {
+  SubjectSelection,
+  VariantSelection,
+  ExamBriefing,
+  ExamSession,
+  PreliminaryResults,
+  FinalResults,
+  ErrorReview,
+} from './pages/mock-exam'
 import { OnboardingProvider } from './context/OnboardingContext'
 import { LessonProvider } from './context/LessonContext'
 import { DailyProgressProvider } from './context/DailyProgressContext'
@@ -115,6 +124,64 @@ function App() {
                 element={
                   <MainLayout>
                     <AIRoadmap />
+                  </MainLayout>
+                }
+              />
+
+              {/* Mock exam flow - с MainLayout */}
+              <Route
+                path="/mock-exam/subjects"
+                element={
+                  <MainLayout>
+                    <SubjectSelection />
+                  </MainLayout>
+                }
+              />
+              <Route
+                path="/mock-exam/:subjectId/variants"
+                element={
+                  <MainLayout>
+                    <VariantSelection />
+                  </MainLayout>
+                }
+              />
+              <Route
+                path="/mock-exam/:subjectId/:variantId/briefing"
+                element={
+                  <MainLayout>
+                    <ExamBriefing />
+                  </MainLayout>
+                }
+              />
+              <Route
+                path="/mock-exam/:subjectId/:variantId/exam"
+                element={
+                  <MainLayout>
+                    <ExamSession />
+                  </MainLayout>
+                }
+              />
+              <Route
+                path="/mock-exam/:examId/preliminary"
+                element={
+                  <MainLayout>
+                    <PreliminaryResults />
+                  </MainLayout>
+                }
+              />
+              <Route
+                path="/mock-exam/:examId/results"
+                element={
+                  <MainLayout>
+                    <FinalResults />
+                  </MainLayout>
+                }
+              />
+              <Route
+                path="/mock-exam/:examId/review"
+                element={
+                  <MainLayout>
+                    <ErrorReview />
                   </MainLayout>
                 }
               />
