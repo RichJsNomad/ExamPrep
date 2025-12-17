@@ -61,12 +61,13 @@ export function OnboardingStep1() {
               <Title order={4} mb="md" c="gray.7">
                 В каком ты классе?
               </Title>
-              <Group gap="md" grow>
+              <Group gap="md" justify="center">
                 <Button
                   size="lg"
                   variant={grade === '9' ? 'filled' : 'outline'}
                   color="blue"
                   onClick={() => setGrade('9')}
+                  style={{ minWidth: 120 }}
                 >
                   9 класс
                 </Button>
@@ -75,6 +76,7 @@ export function OnboardingStep1() {
                   variant={grade === '10' ? 'filled' : 'outline'}
                   color="blue"
                   onClick={() => setGrade('10')}
+                  style={{ minWidth: 120 }}
                 >
                   10 класс
                 </Button>
@@ -83,6 +85,7 @@ export function OnboardingStep1() {
                   variant={grade === '11' ? 'filled' : 'outline'}
                   color="blue"
                   onClick={() => setGrade('11')}
+                  style={{ minWidth: 120 }}
                 >
                   11 класс
                 </Button>

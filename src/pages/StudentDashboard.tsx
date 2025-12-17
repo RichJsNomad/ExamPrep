@@ -1,12 +1,17 @@
 import { Container, SimpleGrid, Stack } from '@mantine/core'
 import { WelcomeSection } from '../components/dashboard/WelcomeSection'
+import { QuickStartCard } from '../components/dashboard/QuickStartCard'
 import { TodayPlanCard } from '../components/dashboard/TodayPlanCard'
 import { GoalProgressCard } from '../components/dashboard/GoalProgressCard'
 import { ContinueLearningCard } from '../components/dashboard/ContinueLearningCard'
 import { AchievementsCard } from '../components/dashboard/AchievementsCard'
 import { WeeklyChallengeCard } from '../components/dashboard/WeeklyChallengeCard'
+import { useOnboarding } from '../context/OnboardingContext'
 
 export function StudentDashboard() {
+  const { data: onboardingData } = useOnboarding()
+  const userName = onboardingData.name || 'Иван'
+
   // Моковые данные для примера
   const todayTasks = [
     {
@@ -49,12 +54,20 @@ export function StudentDashboard() {
   return (
     <Container size="xl" py="md">
       <Stack gap="xl">
+        {/* Быстрый старт для нового пользователя */}
+        <QuickStartCard
+          userName={userName}
+          lessonTitle="Как работает ЕГЭ"
+          lessonDuration={5}
+          todayProgress={0}
+        />
+
         {/* Приветствие */}
         <WelcomeSection
-          userName="Иван"
-          streak={7}
-          level={5}
-          levelName="Мастер"
+          userName={userName}
+          streak={0}
+          level={1}
+          levelName="Новичок"
         />
 
         {/* Сетка с карточками */}
