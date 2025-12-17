@@ -1,5 +1,5 @@
 import { Card, Title, SimpleGrid, Text, Badge, Button, Stack, Group } from '@mantine/core'
-import { IconSchool, IconChartBar } from '@tabler/icons-react'
+import { IconSchool, IconChartBar, IconArrowsLeftRight } from '@tabler/icons-react'
 
 interface University {
   id: string
@@ -11,11 +11,13 @@ interface University {
 interface BackupUniversitiesCardProps {
   universities: University[]
   onUniversityClick?: (universityId: string) => void
+  onCompareClick?: () => void
 }
 
 export function BackupUniversitiesCard({
   universities,
-  onUniversityClick
+  onUniversityClick,
+  onCompareClick
 }: BackupUniversitiesCardProps) {
   const getChanceColor = (level: University['chanceLevel']) => {
     switch (level) {
@@ -107,6 +109,17 @@ export function BackupUniversitiesCard({
           </Card>
         ))}
       </SimpleGrid>
+
+      <Button
+        variant="outline"
+        leftSection={<IconArrowsLeftRight size={18} />}
+        onClick={onCompareClick}
+        fullWidth
+        size="md"
+        mt="xl"
+      >
+        Сравнить вузы
+      </Button>
     </Card>
   )
 }

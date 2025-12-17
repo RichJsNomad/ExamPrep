@@ -1,12 +1,15 @@
 import { Container, Stack } from '@mantine/core'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   TargetUniversityCard,
   CurrentProgressCard,
   MonthlyPlanTimeline,
   BackupUniversitiesCard,
   AIAdvisorCard,
-  UniversityDetailModal
+  UniversityDetailModal,
+  TodayRoadmapTasks,
+  WeekCalendar
 } from '../components/roadmap'
 
 // Типы данных
@@ -24,6 +27,7 @@ interface UniversityDetail {
 }
 
 export function AIRoadmap() {
+  const navigate = useNavigate()
   const [selectedUniversity, setSelectedUniversity] = useState<UniversityDetail | null>(null)
   const [modalOpened, setModalOpened] = useState(false)
 
@@ -39,9 +43,25 @@ export function AIRoadmap() {
 
   // Mock данные - прогресс по предметам
   const subjectsProgress = [
-    { subject: 'Русский язык', currentScore: 68, targetScore: 100, color: 'blue' },
-    { subject: 'Математика', currentScore: 72, targetScore: 100, color: 'green' },
-    { subject: 'Информатика', currentScore: 67, targetScore: 100, color: 'purple' },
+    { subject: 'Русский язык', currentScore: 85, targetScore: 100, color: 'blue' },
+    { subject: 'Математика профиль', currentScore: 78, targetScore: 100, color: 'green' },
+    { subject: 'Физика', currentScore: 52, targetScore: 100, color: 'purple' },
+  ]
+
+  // Mock данные - задачи на сегодня
+  const todayTasks = [
+    { id: '1', subject: 'Урок:', description: 'Производная', completed: false },
+    { id: '2', subject: 'Практика:', description: '20 задач', completed: false },
+    { id: '3', subject: 'Тест', description: 'по теме', completed: false },
+  ]
+
+  // Mock данные - календарь недели
+  const weekDays = [
+    { day: 'Пн', status: 'completed' as const },
+    { day: 'Вт', status: 'completed' as const },
+    { day: 'Ср', status: 'today' as const },
+    { day: 'Чт', status: 'planned' as const },
+    { day: 'Пт', status: 'planned' as const },
   ]
 
   // Mock данные - план на месяц
@@ -145,12 +165,24 @@ export function AIRoadmap() {
           onChangeTarget={() => console.log('Change target university')}
         />
 
+        {/* Задачи на сегодня */}
+        <TodayRoadmapTasks
+          tasks={todayTasks}
+          onStart={() => navigate('/daily/lesson')}
+        />
+
+        {/* Календарь недели */}
+        <WeekCalendar
+          weekDays={weekDays}
+          onAddToCalendar={() => console.log('Add to calendar')}
+        />
+
         {/* Текущий прогресс */}
         <CurrentProgressCard
-          totalCurrentScore={207}
-          totalTargetScore={380}
+          totalCurrentScore={215}
+          totalTargetScore={285}
           subjects={subjectsProgress}
-          daysUntilExam={245}
+          daysUntilExam={156}
         />
 
         {/* План на месяц */}
@@ -160,6 +192,7 @@ export function AIRoadmap() {
         <BackupUniversitiesCard
           universities={backupUniversities}
           onUniversityClick={handleUniversityClick}
+          onCompareClick={() => console.log('Compare universities')}
         />
 
         {/* ИИ-советник */}

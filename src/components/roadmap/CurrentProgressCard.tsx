@@ -1,5 +1,6 @@
-import { Card, Title, Text, Progress, Stack, Group, Badge, Divider } from '@mantine/core'
-import { IconTrendingUp, IconClock, IconAlertTriangle } from '@tabler/icons-react'
+import { Card, Title, Text, Progress, Stack, Group, Badge, Divider, Button, Box } from '@mantine/core'
+import { IconTrendingUp, IconClock, IconAlertTriangle, IconRefresh } from '@tabler/icons-react'
+import { notifications } from '@mantine/notifications'
 
 interface SubjectProgress {
   subject: string
@@ -24,6 +25,15 @@ export function CurrentProgressCard({
   const scoreGap = totalTargetScore - totalCurrentScore
   const isOnTrack = scoreGap <= 50
 
+  const handleRecalculate = () => {
+    notifications.show({
+      title: 'План пересчитан',
+      message: 'Ваш персональный план обновлён на основе текущих результатов',
+      color: 'blue',
+      icon: <IconRefresh size={18} />,
+    })
+  }
+
   return (
     <Card shadow="sm" padding="xl" radius="md" withBorder>
       <Group justify="space-between" mb="lg">
@@ -45,13 +55,33 @@ export function CurrentProgressCard({
       <Stack gap="lg">
         {subjects.map((subject) => {
           const progress = Math.round((subject.currentScore / subject.targetScore) * 100)
+          const isWeak = progress < 60
 
           return (
-            <div key={subject.subject}>
+            <Box
+              key={subject.subject}
+              p={isWeak ? 'md' : 0}
+              style={
+                isWeak
+                  ? {
+                      backgroundColor: 'var(--mantine-color-red-0)',
+                      borderRadius: 'var(--mantine-radius-md)',
+                      border: '2px solid var(--mantine-color-red-3)',
+                    }
+                  : undefined
+              }
+            >
               <Group justify="space-between" mb={8}>
-                <Text fw={600} size="sm">
-                  {subject.subject}
-                </Text>
+                <Group gap="xs">
+                  <Text fw={600} size="sm">
+                    {subject.subject}
+                  </Text>
+                  {isWeak && (
+                    <Badge color="red" variant="light" size="sm" leftSection="⚠️">
+                      Нужно ускориться
+                    </Badge>
+                  )}
+                </Group>
                 <Text size="sm" c="dimmed">
                   {subject.currentScore}/{subject.targetScore}
                 </Text>
@@ -59,12 +89,12 @@ export function CurrentProgressCard({
               <Progress.Root size="xl">
                 <Progress.Section
                   value={progress}
-                  color={subject.color}
+                  color={isWeak ? 'red' : subject.color}
                 >
                   <Progress.Label>{progress}%</Progress.Label>
                 </Progress.Section>
               </Progress.Root>
-            </div>
+            </Box>
           )
         })}
       </Stack>
@@ -97,6 +127,18 @@ export function CurrentProgressCard({
           </Text>
         </Group>
       </Group>
+
+      <Divider my="lg" />
+
+      <Button
+        variant="light"
+        leftSection={<IconRefresh size={18} />}
+        onClick={handleRecalculate}
+        fullWidth
+        size="md"
+      >
+        Пересчитать план
+      </Button>
     </Card>
   )
 }

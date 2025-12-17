@@ -1,4 +1,6 @@
-import { Container, SimpleGrid, Stack } from '@mantine/core'
+import { Container, SimpleGrid, Stack, Button, Paper, Text } from '@mantine/core'
+import { IconRocket } from '@tabler/icons-react'
+import { useNavigate } from 'react-router-dom'
 import { WelcomeSection } from '../components/dashboard/WelcomeSection'
 import { QuickStartCard } from '../components/dashboard/QuickStartCard'
 import { DailyPlanCard } from '../components/dashboard/DailyPlanCard'
@@ -11,6 +13,7 @@ import { useOnboarding } from '../context/OnboardingContext'
 import { useDailyProgress } from '../context/DailyProgressContext'
 
 export function StudentDashboard() {
+  const navigate = useNavigate()
   const { data: onboardingData } = useOnboarding()
   const { data: dailyData } = useDailyProgress()
   const userName = onboardingData.name || 'Иван'
@@ -88,6 +91,14 @@ export function StudentDashboard() {
   return (
     <Container size="xl" py="md">
       <Stack gap="xl">
+        {/* Приветствие */}
+        <WelcomeSection
+          userName={userName}
+          streak={dailyData.streak}
+          level={1}
+          levelName="Новичок"
+        />
+
         {/* Быстрый старт для нового пользователя */}
         {showQuickStart && (
           <QuickStartCard
@@ -107,13 +118,22 @@ export function StudentDashboard() {
           />
         )}
 
-        {/* Приветствие */}
-        <WelcomeSection
-          userName={userName}
-          streak={dailyData.streak}
-          level={1}
-          levelName="Новичок"
-        />
+        {/* DEMO: Кнопка для демонстрации */}
+        <Paper p="md" radius="md" withBorder bg="blue.0">
+          <Stack gap="sm">
+            <Text size="sm" fw={600} c="blue.7">
+              🎬 Демо
+            </Text>
+            <Button
+              leftSection={<IconRocket size={20} />}
+              onClick={() => navigate('/daily/lesson')}
+              color="blue"
+              fullWidth
+            >
+              Ежедневное обучение
+            </Button>
+          </Stack>
+        </Paper>
 
         {/* Сетка с карточками */}
         <SimpleGrid cols={{ base: 1, md: 2 }} spacing="lg">

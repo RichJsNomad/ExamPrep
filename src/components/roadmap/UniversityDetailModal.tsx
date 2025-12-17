@@ -8,6 +8,7 @@ import {
   IconStar,
   IconTarget
 } from '@tabler/icons-react'
+import { notifications } from '@mantine/notifications'
 
 interface UniversityDetail {
   id: string
@@ -134,10 +135,16 @@ export function UniversityDetailModal({
             leftSection={<IconTarget size={20} />}
             onClick={() => {
               onSetAsTarget(university.id)
+              notifications.show({
+                title: 'План обновлён под новую цель',
+                message: `${university.name} установлен как целевой вуз. Роадмап пересчитан.`,
+                color: 'green',
+                icon: <IconTarget size={18} />,
+              })
               onClose()
             }}
           >
-            Сделать целевым вузом
+            Сделать основной целью
           </Button>
         )}
       </Stack>
