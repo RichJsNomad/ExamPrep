@@ -1,15 +1,18 @@
 import { Container, SimpleGrid, Stack } from '@mantine/core'
 import { WelcomeSection } from '../components/dashboard/WelcomeSection'
 import { QuickStartCard } from '../components/dashboard/QuickStartCard'
+import { DailyPlanCard } from '../components/dashboard/DailyPlanCard'
 import { TodayPlanCard } from '../components/dashboard/TodayPlanCard'
 import { GoalProgressCard } from '../components/dashboard/GoalProgressCard'
 import { ContinueLearningCard } from '../components/dashboard/ContinueLearningCard'
 import { AchievementsCard } from '../components/dashboard/AchievementsCard'
 import { WeeklyChallengeCard } from '../components/dashboard/WeeklyChallengeCard'
 import { useOnboarding } from '../context/OnboardingContext'
+import { useDailyProgress } from '../context/DailyProgressContext'
 
 export function StudentDashboard() {
   const { data: onboardingData } = useOnboarding()
+  const { data: dailyData } = useDailyProgress()
   const userName = onboardingData.name || 'Иван'
 
   // Моковые данные для примера
@@ -34,6 +37,34 @@ export function StudentDashboard() {
     },
   ]
 
+  // Задачи для DailyPlanCard
+  const dailyTasks = [
+    {
+      id: '1',
+      title: 'Урок: Функции',
+      icon: '🎬',
+      duration: '12 мин',
+      completed: false,
+      route: '/daily/lesson',
+    },
+    {
+      id: '2',
+      title: 'Практика',
+      icon: '📝',
+      duration: '20 задач',
+      completed: false,
+      route: '/daily/practice',
+    },
+    {
+      id: '3',
+      title: 'Мини-тест',
+      icon: '✓',
+      duration: '5 вопросов',
+      completed: false,
+      route: '/daily/quiz',
+    },
+  ]
+
   const recentAchievements = [
     {
       id: '1',
@@ -51,21 +82,35 @@ export function StudentDashboard() {
     },
   ]
 
+  // Показываем QuickStartCard только для новых пользователей (streak === 0)
+  const showQuickStart = dailyData.streak === 0
+
   return (
     <Container size="xl" py="md">
       <Stack gap="xl">
         {/* Быстрый старт для нового пользователя */}
-        <QuickStartCard
-          userName={userName}
-          lessonTitle="Как работает ЕГЭ"
-          lessonDuration={5}
-          todayProgress={0}
-        />
+        {showQuickStart && (
+          <QuickStartCard
+            userName={userName}
+            lessonTitle="Как работает ЕГЭ"
+            lessonDuration={5}
+            todayProgress={0}
+          />
+        )}
+
+        {/* План на день (для постоянных пользователей) */}
+        {!showQuickStart && (
+          <DailyPlanCard
+            streak={dailyData.streak}
+            tasks={dailyTasks}
+            progress={dailyData.todayProgress}
+          />
+        )}
 
         {/* Приветствие */}
         <WelcomeSection
           userName={userName}
-          streak={0}
+          streak={dailyData.streak}
           level={1}
           levelName="Новичок"
         />

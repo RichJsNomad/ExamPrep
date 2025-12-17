@@ -1,5 +1,6 @@
 export { WelcomeSection } from './WelcomeSection'
 export { QuickStartCard } from './QuickStartCard'
+export { DailyPlanCard } from './DailyPlanCard'
 export { TodayPlanCard } from './TodayPlanCard'
 export { GoalProgressCard } from './GoalProgressCard'
 export { ContinueLearningCard } from './ContinueLearningCard'
