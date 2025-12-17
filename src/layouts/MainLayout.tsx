@@ -19,7 +19,7 @@ export function MainLayout({ children }: MainLayoutProps) {
     { icon: IconBook, label: 'Мои курсы', href: '/courses', color: 'purple' },
     { icon: IconTarget, label: 'Мой план поступления', href: '/roadmap', color: 'orange' },
     { icon: IconWriting, label: 'Практика', href: '/practice', color: 'green' },
-    { icon: IconFileText, label: 'Пробные экзамены', href: '/exams', color: 'blue' },
+    { icon: IconFileText, label: 'Пробные экзамены', href: '/mock-exam/subjects', color: 'blue' },
     { icon: IconTrophy, label: 'Достижения', href: '/achievements', color: 'orange' },
     { icon: IconChartBar, label: 'Статистика', href: '/stats', color: 'purple' },
   ]
