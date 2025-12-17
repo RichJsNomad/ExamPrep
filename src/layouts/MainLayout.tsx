@@ -2,6 +2,7 @@ import { AppShell, Burger, Group, Title, Avatar, ActionIcon, Indicator, ScrollAr
 import { useDisclosure } from '@mantine/hooks'
 import { IconBell, IconHome, IconBook, IconTarget, IconWriting, IconFileText, IconTrophy, IconChartBar } from '@tabler/icons-react'
 import { NavLink } from '@mantine/core'
+import { Link, useLocation } from 'react-router-dom'
 import { ReactNode } from 'react'
 
 interface MainLayoutProps {
@@ -11,6 +12,7 @@ interface MainLayoutProps {
 export function MainLayout({ children }: MainLayoutProps) {
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure()
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true)
+  const location = useLocation()
 
   const navigationItems = [
     { icon: IconHome, label: 'Главная', href: '/', color: 'blue' },
@@ -76,10 +78,11 @@ export function MainLayout({ children }: MainLayoutProps) {
           {navigationItems.map((item) => (
             <NavLink
               key={item.href}
-              href={item.href}
+              component={Link}
+              to={item.href}
               label={item.label}
               leftSection={<item.icon size={20} stroke={1.5} />}
-              active={window.location.pathname === item.href}
+              active={location.pathname === item.href}
               variant="subtle"
               color={item.color}
               mb="xs"
