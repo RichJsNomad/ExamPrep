@@ -1,5 +1,5 @@
 import { Group, Title, Badge, Text, Paper, Box } from '@mantine/core'
-import { IconFlame, IconTrophy, IconSparkles } from '@tabler/icons-react'
+import { IconSparkles } from '@tabler/icons-react'
 
 interface WelcomeSectionProps {
   userName: string

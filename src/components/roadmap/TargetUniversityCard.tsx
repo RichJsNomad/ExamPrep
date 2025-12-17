@@ -1,4 +1,4 @@
-import { Card, Title, Text, Group, Badge, Button, Box } from '@mantine/core'
+import { Card, Title, Text, Group, Button, Box } from '@mantine/core'
 import { IconSchool, IconMapPin, IconCoin, IconChartBar, IconEdit } from '@tabler/icons-react'
 
 interface TargetUniversityCardProps {

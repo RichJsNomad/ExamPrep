@@ -3,7 +3,7 @@ import { useDisclosure } from '@mantine/hooks'
 import { IconBell, IconHome, IconBook, IconTarget, IconWriting, IconFileText, IconTrophy, IconChartBar } from '@tabler/icons-react'
 import { NavLink } from '@mantine/core'
 import { Link, useLocation } from 'react-router-dom'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 interface MainLayoutProps {
   children: ReactNode
