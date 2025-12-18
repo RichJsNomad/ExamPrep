@@ -1,4 +1,4 @@
-import { Card, Stack, Text, Button, Badge, List, Group } from '@mantine/core'
+import { Card, Stack, Text, Button, List, Group } from '@mantine/core'
 import { IconCheck } from '@tabler/icons-react'
 import { useState } from 'react'
 import type { Plan } from '../../types/subscription'

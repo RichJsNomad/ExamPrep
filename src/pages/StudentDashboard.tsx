@@ -1,5 +1,4 @@
 import { Container, SimpleGrid, Stack } from '@mantine/core'
-import { useNavigate } from 'react-router-dom'
 import { WelcomeSection } from '../components/dashboard/WelcomeSection'
 import { TodayPlanCard } from '../components/dashboard/TodayPlanCard'
 import { GoalProgressCard } from '../components/dashboard/GoalProgressCard'
@@ -10,7 +9,6 @@ import { useOnboarding } from '../context/OnboardingContext'
 import { useDailyProgress } from '../context/DailyProgressContext'
 
 export function StudentDashboard() {
-  const navigate = useNavigate()
   const { data: onboardingData } = useOnboarding()
   const { data: dailyData } = useDailyProgress()
   const userName = onboardingData.name || 'Иван'
