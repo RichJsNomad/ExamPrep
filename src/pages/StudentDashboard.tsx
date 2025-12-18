@@ -1,9 +1,6 @@
-import { Container, SimpleGrid, Stack, Button, Paper, Text } from '@mantine/core'
-import { IconRocket } from '@tabler/icons-react'
+import { Container, SimpleGrid, Stack } from '@mantine/core'
 import { useNavigate } from 'react-router-dom'
 import { WelcomeSection } from '../components/dashboard/WelcomeSection'
-import { QuickStartCard } from '../components/dashboard/QuickStartCard'
-import { DailyPlanCard } from '../components/dashboard/DailyPlanCard'
 import { TodayPlanCard } from '../components/dashboard/TodayPlanCard'
 import { GoalProgressCard } from '../components/dashboard/GoalProgressCard'
 import { ContinueLearningCard } from '../components/dashboard/ContinueLearningCard'
@@ -40,34 +37,6 @@ export function StudentDashboard() {
     },
   ]
 
-  // Задачи для DailyPlanCard
-  const dailyTasks = [
-    {
-      id: '1',
-      title: 'Урок: Функции',
-      icon: '🎬',
-      duration: '12 мин',
-      completed: false,
-      route: '/daily/lesson',
-    },
-    {
-      id: '2',
-      title: 'Практика',
-      icon: '📝',
-      duration: '20 задач',
-      completed: false,
-      route: '/daily/practice',
-    },
-    {
-      id: '3',
-      title: 'Мини-тест',
-      icon: '✓',
-      duration: '5 вопросов',
-      completed: false,
-      route: '/daily/quiz',
-    },
-  ]
-
   const recentAchievements = [
     {
       id: '1',
@@ -85,9 +54,6 @@ export function StudentDashboard() {
     },
   ]
 
-  // Показываем QuickStartCard только для новых пользователей (streak === 0)
-  const showQuickStart = dailyData.streak === 0
-
   return (
     <Container size="xl" py="md">
       <Stack gap="xl">
@@ -99,41 +65,6 @@ export function StudentDashboard() {
           levelName="Новичок"
         />
 
-        {/* Быстрый старт для нового пользователя */}
-        {showQuickStart && (
-          <QuickStartCard
-            userName={userName}
-            lessonTitle="Как работает ЕГЭ"
-            lessonDuration={5}
-            todayProgress={0}
-          />
-        )}
-
-        {/* План на день (для постоянных пользователей) */}
-        {!showQuickStart && (
-          <DailyPlanCard
-            streak={dailyData.streak}
-            tasks={dailyTasks}
-            progress={dailyData.todayProgress}
-          />
-        )}
-
-        {/* DEMO: Кнопка для демонстрации */}
-        <Paper p="md" radius="md" withBorder bg="blue.0">
-          <Stack gap="sm">
-            <Text size="sm" fw={600} c="blue.7">
-              🎬 Демо
-            </Text>
-            <Button
-              leftSection={<IconRocket size={20} />}
-              onClick={() => navigate('/daily/lesson')}
-              color="blue"
-              fullWidth
-            >
-              Ежедневное обучение
-            </Button>
-          </Stack>
-        </Paper>
 
         {/* Сетка с карточками */}
         <SimpleGrid cols={{ base: 1, md: 2 }} spacing="lg">
