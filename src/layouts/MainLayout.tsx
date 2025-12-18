@@ -1,4 +1,4 @@
-import { AppShell, Burger, Group, Title, Avatar, ActionIcon, Indicator, Divider, Popover, Text, Stack, Badge, ScrollArea } from '@mantine/core'
+import { AppShell, Burger, Group, Title, Avatar, ActionIcon, Indicator, Divider, Popover, Text, Stack, Badge, ScrollArea, Tooltip } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { IconBell, IconHome, IconBook, IconTarget, IconWriting, IconFileText, IconTrophy, IconChartBar, IconUsers, IconCheck, IconCreditCard } from '@tabler/icons-react'
 import { NavLink } from '@mantine/core'
@@ -38,14 +38,14 @@ export function MainLayout({ children }: MainLayoutProps) {
   const unreadCount = mockNotifications.filter(n => !n.read).length
 
   const studentItems = [
-    { icon: IconHome, label: 'Главная', href: '/dashboard', color: 'blue' },
-    { icon: IconBook, label: 'Мои курсы', href: '/lesson/first', color: 'purple' },
-    { icon: IconTarget, label: 'Мой план поступления', href: '/roadmap', color: 'orange' },
-    { icon: IconWriting, label: 'Практика', href: '/daily/practice', color: 'green' },
-    { icon: IconFileText, label: 'Пробные экзамены', href: '/mock-exam/subjects', color: 'blue' },
-    { icon: IconTrophy, label: 'Достижения', href: '/achievements', color: 'orange' },
-    { icon: IconChartBar, label: 'Статистика', href: '/stats', color: 'purple' },
-    { icon: IconCreditCard, label: 'Подписка', href: '/subscription/plans', color: 'green' },
+    { icon: IconHome, label: 'Главная', href: '/dashboard', color: 'blue', disabled: false },
+    { icon: IconBook, label: 'Мои курсы', href: '/lesson/first', color: 'purple', disabled: false },
+    { icon: IconTarget, label: 'Мой план поступления', href: '/roadmap', color: 'orange', disabled: false },
+    { icon: IconWriting, label: 'Практика', href: '/daily/practice', color: 'green', disabled: false },
+    { icon: IconFileText, label: 'Пробные экзамены', href: '/mock-exam/subjects', color: 'blue', disabled: false },
+    { icon: IconTrophy, label: 'Достижения', href: '/achievements', color: 'orange', disabled: true },
+    { icon: IconChartBar, label: 'Статистика', href: '/stats', color: 'purple', disabled: true },
+    { icon: IconCreditCard, label: 'Подписка', href: '/subscription/plans', color: 'green', disabled: false },
   ]
 
   const parentItems = [
@@ -194,19 +194,46 @@ export function MainLayout({ children }: MainLayoutProps) {
       {/* Navbar */}
       <AppShell.Navbar p="md">
         <AppShell.Section grow component={ScrollArea}>
-          {studentItems.map((item) => (
-            <NavLink
-              key={item.href}
-              component={Link}
-              to={item.href}
-              label={item.label}
-              leftSection={<item.icon size={20} stroke={1.5} />}
-              active={location.pathname === item.href}
-              variant="subtle"
-              color={item.color}
-              mb="xs"
-            />
-          ))}
+          {studentItems.map((item) => {
+            if (item.disabled) {
+              return (
+                <Tooltip
+                  key={item.href}
+                  label="Скоро будет доступно"
+                  position="right"
+                  withArrow
+                >
+                  <div>
+                    <NavLink
+                      label={item.label}
+                      leftSection={<item.icon size={20} stroke={1.5} />}
+                      variant="subtle"
+                      color={item.color}
+                      mb="xs"
+                      onClick={(e: React.MouseEvent) => {
+                        e.preventDefault()
+                        e.stopPropagation()
+                      }}
+                    />
+                  </div>
+                </Tooltip>
+              )
+            }
+
+            return (
+              <NavLink
+                key={item.href}
+                component={Link}
+                to={item.href}
+                label={item.label}
+                leftSection={<item.icon size={20} stroke={1.5} />}
+                active={location.pathname === item.href}
+                variant="subtle"
+                color={item.color}
+                mb="xs"
+              />
+            )
+          })}
 
           <Divider my="md" />
 
