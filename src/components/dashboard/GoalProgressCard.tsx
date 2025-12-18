@@ -60,12 +60,12 @@ export function GoalProgressCard({ universityName, currentScore, targetScore }: 
           sections={[
             {
               value: progress,
-              color: progress >= 100 ? 'green' : progress >= 70 ? 'blue' : 'orange',
+              color: progress >= 100 ? 'green' : progress >= 70 ? 'teal' : 'cyan',
             },
           ]}
           label={
             <div style={{ textAlign: 'center' }}>
-              <Text size="xl" fw={700} c={progress >= 100 ? 'green' : 'purple'}>
+              <Text size="xl" fw={700} c={progress >= 100 ? 'green' : 'teal'}>
                 {progress}%
               </Text>
               <Text size="xs" c="dimmed">
@@ -122,15 +122,15 @@ export function GoalProgressCard({ universityName, currentScore, targetScore }: 
         value={progress}
         size="lg"
         radius="xl"
-        color={progress >= 100 ? 'green' : progress >= 70 ? 'blue' : 'orange'}
+        color={progress >= 100 ? 'green' : progress >= 70 ? 'teal' : 'cyan'}
         animated={progress < 100}
         style={{
           boxShadow: `0 2px 8px ${
             progress >= 100
               ? 'rgba(16, 185, 129, 0.3)'
               : progress >= 70
-              ? 'rgba(37, 99, 235, 0.3)'
-              : 'rgba(245, 158, 11, 0.3)'
+              ? 'rgba(20, 184, 166, 0.3)'
+              : 'rgba(6, 182, 212, 0.3)'
           }`,
         }}
       />
@@ -141,7 +141,7 @@ export function GoalProgressCard({ universityName, currentScore, targetScore }: 
             Цель достигнута!
           </Badge>
         ) : (
-          <Badge size="lg" variant="light" color="orange" leftSection="🎯">
+          <Badge size="lg" variant="light" color="cyan" leftSection="🎯">
             Осталось набрать: {remaining} баллов
           </Badge>
         )}
