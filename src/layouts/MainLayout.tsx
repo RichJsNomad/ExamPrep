@@ -1,6 +1,6 @@
 import { AppShell, Burger, Group, Title, Avatar, ActionIcon, Indicator, Divider, Popover, Text, Stack, Badge, ScrollArea } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import { IconBell, IconHome, IconBook, IconTarget, IconWriting, IconFileText, IconTrophy, IconChartBar, IconUsers, IconCheck } from '@tabler/icons-react'
+import { IconBell, IconHome, IconBook, IconTarget, IconWriting, IconFileText, IconTrophy, IconChartBar, IconUsers, IconCheck, IconCreditCard } from '@tabler/icons-react'
 import { NavLink } from '@mantine/core'
 import { Link, useLocation } from 'react-router-dom'
 import type { ReactNode } from 'react'
@@ -45,6 +45,7 @@ export function MainLayout({ children }: MainLayoutProps) {
     { icon: IconFileText, label: 'Пробные экзамены', href: '/mock-exam/subjects', color: 'blue' },
     { icon: IconTrophy, label: 'Достижения', href: '/achievements', color: 'orange' },
     { icon: IconChartBar, label: 'Статистика', href: '/stats', color: 'purple' },
+    { icon: IconCreditCard, label: 'Подписка', href: '/subscription/plans', color: 'green' },
   ]
 
   const parentItems = [

@@ -25,6 +25,14 @@ import {
   ErrorReview,
 } from './pages/mock-exam'
 import { ParentDashboard, ParentDetails } from './pages/parent'
+import {
+  PaywallScreen,
+  PricingPlans,
+  PaymentPeriod,
+  PaymentForm,
+  PaymentSuccess,
+  PaymentError,
+} from './pages/subscription'
 import { OnboardingProvider } from './context/OnboardingContext'
 import { LessonProvider } from './context/LessonContext'
 import { DailyProgressProvider } from './context/DailyProgressContext'
@@ -201,6 +209,56 @@ function App() {
                 element={
                   <MainLayout>
                     <ParentDetails />
+                  </MainLayout>
+                }
+              />
+
+              {/* Subscription flow - с MainLayout */}
+              <Route
+                path="/subscription/paywall"
+                element={
+                  <MainLayout>
+                    <PaywallScreen />
+                  </MainLayout>
+                }
+              />
+              <Route
+                path="/subscription/plans"
+                element={
+                  <MainLayout>
+                    <PricingPlans />
+                  </MainLayout>
+                }
+              />
+              <Route
+                path="/subscription/period"
+                element={
+                  <MainLayout>
+                    <PaymentPeriod />
+                  </MainLayout>
+                }
+              />
+              <Route
+                path="/subscription/payment"
+                element={
+                  <MainLayout>
+                    <PaymentForm />
+                  </MainLayout>
+                }
+              />
+              <Route
+                path="/subscription/success"
+                element={
+                  <MainLayout>
+                    <PaymentSuccess />
+                  </MainLayout>
+                }
+              />
+              <Route
+                path="/subscription/error"
+                element={
+                  <MainLayout>
+                    <PaymentError />
                   </MainLayout>
                 }
               />
