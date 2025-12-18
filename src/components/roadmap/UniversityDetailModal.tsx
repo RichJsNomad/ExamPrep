@@ -50,6 +50,7 @@ export function UniversityDetailModal({
       }
       size="lg"
       centered
+      withinPortal
     >
       <Stack gap="lg">
         {/* Основная информация */}

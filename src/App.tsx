@@ -24,6 +24,7 @@ import {
   FinalResults,
   ErrorReview,
 } from './pages/mock-exam'
+import { ParentDashboard, ParentDetails } from './pages/parent'
 import { OnboardingProvider } from './context/OnboardingContext'
 import { LessonProvider } from './context/LessonContext'
 import { DailyProgressProvider } from './context/DailyProgressContext'
@@ -182,6 +183,24 @@ function App() {
                 element={
                   <MainLayout>
                     <ErrorReview />
+                  </MainLayout>
+                }
+              />
+
+              {/* Parent control flow - с MainLayout */}
+              <Route
+                path="/parent/dashboard"
+                element={
+                  <MainLayout>
+                    <ParentDashboard />
+                  </MainLayout>
+                }
+              />
+              <Route
+                path="/parent/details"
+                element={
+                  <MainLayout>
+                    <ParentDetails />
                   </MainLayout>
                 }
               />

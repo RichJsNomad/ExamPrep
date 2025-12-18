@@ -56,7 +56,8 @@ export function QuickStartCard({
 
             <Button
               size="lg"
-              color="orange"
+              variant="white"
+              color="blue"
               leftSection={<IconPlayerPlay size={20} />}
               onClick={() => navigate('/lesson/first')}
               fullWidth

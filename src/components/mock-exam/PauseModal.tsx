@@ -21,6 +21,7 @@ export function PauseModal({ opened, onClose, onResume, onExitAndSave }: PauseMo
       }
       centered
       size="md"
+      withinPortal
     >
       <Stack gap="lg">
         <Stack gap="xs">

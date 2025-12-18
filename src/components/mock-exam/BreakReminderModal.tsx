@@ -20,6 +20,7 @@ export function BreakReminderModal({ opened, onClose, onTakeBreak }: BreakRemind
       }
       centered
       size="md"
+      withinPortal
     >
       <Stack gap="lg">
         <Text>Ты занимаешься уже час. Хочешь сделать перерыв?</Text>
