@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { VideoPlayer } from '../../components/lesson/VideoPlayer'
 import { useDailyProgress } from '../../context/DailyProgressContext'
+import { TEST_VIDEOS } from '../../constants/testVideos'
 
 export function RegularLesson() {
   const navigate = useNavigate()
@@ -13,6 +14,12 @@ export function RegularLesson() {
   const handleVideoComplete = () => {
     setVideoCompleted(true)
     addXP(5)
+  }
+
+  const handleQuestionAnswered = (_questionId: string, isCorrect: boolean, xp: number) => {
+    if (isCorrect) {
+      addXP(xp)
+    }
   }
 
   const handleContinue = () => {
@@ -33,7 +40,13 @@ export function RegularLesson() {
         </Box>
 
         {/* Видео плеер */}
-        <VideoPlayer duration={720} onComplete={handleVideoComplete} />
+        <VideoPlayer
+          src={TEST_VIDEOS.mp4.sintel}
+          lessonId="daily-functions-graphs"
+          title="Функции и графики"
+          onComplete={handleVideoComplete}
+          onQuestionAnswered={handleQuestionAnswered}
+        />
 
         {/* Материалы к уроку */}
         <Paper shadow="sm" p="md" radius="md" withBorder>

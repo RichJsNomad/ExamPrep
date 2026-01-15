@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { VideoPlayer } from '../../components/lesson/VideoPlayer'
 import { InteractiveQuestion } from '../../components/lesson/InteractiveQuestion'
 import { useLesson } from '../../context/LessonContext'
+import { TEST_VIDEOS, DEMO_QUESTIONS } from '../../constants/testVideos'
 
 export function LessonVideo() {
   const navigate = useNavigate()
@@ -17,8 +18,11 @@ export function LessonVideo() {
     addXP(10) // +10 XP за просмотр видео
   }
 
-  const handleInteractiveQuestion = () => {
-    setShowQuestion(true)
+  const handleQuestionAnswered = (questionId: string, isCorrect: boolean, xp: number) => {
+    if (isCorrect) {
+      addXP(xp)
+    }
+    console.log(`Question ${questionId}: ${isCorrect ? 'correct' : 'wrong'}, XP: ${xp}`)
   }
 
   const handleAnswer = (understood: boolean) => {
@@ -39,28 +43,26 @@ export function LessonVideo() {
         <Stack gap="sm">
           <Title order={1}>Урок 1: Как работает ЕГЭ</Title>
           <Text c="dimmed">
-            Узнай структуру экзамена и основные правила. Это поможет тебе лучше
-            подготовиться!
+            Узнай структуру экзамена и основные правила. Это поможет тебе лучше подготовиться!
           </Text>
         </Stack>
 
         <VideoPlayer
-          duration={300} // 5 минут
+          src={TEST_VIDEOS.mp4.sintel}
+          lessonId="first-lesson-intro"
+          title="Урок 1: Как работает ЕГЭ"
           onComplete={handleVideoComplete}
-          onInteractiveQuestion={handleInteractiveQuestion}
+          questions={DEMO_QUESTIONS}
+          onQuestionAnswered={handleQuestionAnswered}
         />
 
         {videoCompleted && (
           <Paper shadow="sm" p="lg" radius="md" bg="green.0">
             <Stack gap="md" align="center">
               <Text size="lg" fw={600} c="green.7">
-                ✓ Видео просмотрено! +10 XP
+                Видео просмотрено! +10 XP
               </Text>
-              <Button
-                size="lg"
-                color="green"
-                onClick={handleContinue}
-              >
+              <Button size="lg" color="green" onClick={handleContinue}>
                 Перейти к практике
               </Button>
             </Stack>
