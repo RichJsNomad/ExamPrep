@@ -1,6 +1,6 @@
 import { Container, Stack, Title, Progress, Group, Text, Box, Paper } from '@mantine/core'
 import { IconFlame } from '@tabler/icons-react'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { PracticeQuestion } from '../../components/practice/PracticeQuestion'
 import { useDailyProgress } from '../../context/DailyProgressContext'
@@ -33,7 +33,7 @@ export function PracticeSession() {
   const { data, addXP, completeTask, addTime } = useDailyProgress()
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [correctAnswers, setCorrectAnswers] = useState(0)
-  const [startTime] = useState(Date.now())
+  const startTimeRef = useRef(Date.now())
 
   const progress = Math.round(((currentQuestion + 1) / PRACTICE_QUESTIONS.length) * 100)
 
@@ -52,7 +52,7 @@ export function PracticeSession() {
       setCurrentQuestion((prev) => prev + 1)
     } else {
       // Практика завершена
-      const timeSpent = Math.round((Date.now() - startTime) / 60000) // минуты
+      const timeSpent = Math.round((Date.now() - startTimeRef.current) / 60000) // минуты
       addTime(timeSpent)
       completeTask()
       navigate(

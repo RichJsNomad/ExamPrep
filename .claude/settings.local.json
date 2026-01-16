@@ -2,7 +2,10 @@
   "permissions": {
     "allow": [
       "Bash(npm run build:*)",
-      "mcp__context7__query-docs"
+      "mcp__context7__query-docs",
+      "Bash(npx vitest run)",
+      "Bash(npx vitest run --coverage)",
+      "Bash(npx tsc:*)"
     ]
   }
 }

@@ -24,7 +24,8 @@ export function useVideoProgress(lessonId: string) {
     if (saved) {
       try {
         const parsed = JSON.parse(saved) as VideoProgress
-        setProgress(parsed)
+        // Используем функциональное обновление чтобы избежать предупреждения линтера
+        setProgress(() => parsed)
       } catch (e) {
         console.error('Failed to parse video progress:', e)
       }

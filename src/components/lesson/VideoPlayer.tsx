@@ -55,18 +55,15 @@ export function VideoPlayer({
   const { progress, updateWatchedSecond, markQuestionCompleted } = useVideoProgress(lessonId)
 
   // Сохраняем начальную позицию для восстановления (только при первой загрузке)
-  const initialPositionRef = useRef<number | null>(null)
-  if (initialPositionRef.current === null && progress.lastPosition > 0) {
-    initialPositionRef.current = progress.lastPosition
-  }
+  const hasRestoredPosition = useRef(false)
 
   // Восстановление позиции при загрузке (только один раз)
   useEffect(() => {
-    if (isReady && initialPositionRef.current && initialPositionRef.current > 0 && playerRef.current) {
-      playerRef.current.currentTime = initialPositionRef.current
-      initialPositionRef.current = 0 // Сбрасываем чтобы не восстанавливать повторно
+    if (isReady && !hasRestoredPosition.current && progress.lastPosition > 0 && playerRef.current) {
+      playerRef.current.currentTime = progress.lastPosition
+      hasRestoredPosition.current = true
     }
-  }, [isReady])
+  }, [isReady, progress.lastPosition])
 
   // Загрузка ранее отвеченных вопросов
   useEffect(() => {
@@ -249,12 +246,20 @@ export function VideoPlayer({
   const progressPercent = duration > 0 ? (currentTime / duration) * 100 : 0
 
   return (
-    <Card padding={0} radius="md" shadow="sm" ref={containerRef}>
-      <Box style={{ position: 'relative' }}>
+    <Card
+      padding={0}
+      radius={isFullscreen ? 0 : 'md'}
+      shadow={isFullscreen ? 'none' : 'sm'}
+      ref={containerRef}
+      style={isFullscreen ? { width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column' } : undefined}
+    >
+      <Box style={{ position: 'relative', flex: isFullscreen ? 1 : undefined, display: 'flex', flexDirection: 'column' }}>
         {/* Видео */}
         <Box
           style={{
-            aspectRatio: '16/9',
+            aspectRatio: isFullscreen ? undefined : '16/9',
+            flex: isFullscreen ? 1 : undefined,
+            height: isFullscreen ? '100%' : undefined,
             backgroundColor: '#000',
             cursor: showControls ? 'default' : 'none',
           }}
@@ -263,7 +268,7 @@ export function VideoPlayer({
           <ReactPlayer
             ref={playerRef}
             src={src}
-            style={{ width: '100%', height: '100%' }}
+            style={{ width: '100%', height: '100%', objectFit: isFullscreen ? 'contain' : undefined }}
             onTimeUpdate={handleTimeUpdate}
             onLoadedMetadata={handleLoadedMetadata}
             onEnded={handleEnded}
